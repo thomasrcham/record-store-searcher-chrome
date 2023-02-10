@@ -1,8 +1,6 @@
 const form = document.getElementById("form").addEventListener("submit", (e) => {
   e.preventDefault();
-  let i = 0;
   let searchTerm = searchTermPrep(e.target.search.value);
-  let searchStr = stores[i].Search === 1 ? "search?q=" : stores[i].Search;
 
   // async function getCurrentTab() {
   //   // alert("words");
@@ -15,25 +13,16 @@ const form = document.getElementById("form").addEventListener("submit", (e) => {
   function workpls() {
     alert("pls");
   }
+  let searchStr;
 
-  chrome.tabs.create(
-    {
+  for (let i = 0; i < stores.length; i++) {
+    searchStr = stores[i].Search === 1 ? "search?q=" : stores[i].Search;
+    console.log(searchStr);
+    chrome.tabs.create({
       url: `${stores[i].Website}${searchStr}${searchTerm}`,
       active: false,
-    },
-    (createdTab) => {
-      chrome.tabs.onUpdated.addListener(function _(tabId, info, tab) {
-        if (tabId === createdTab.id && info.url) {
-          // chrome.tabs.executeScript(tabId, { file: "insert.js" }, () => {
-          chrome.tabs.update(tabId, { active: true });
-          chrome.scripting.executeScript(tabId, {
-            target: { tabId: tabId },
-            func: workpls,
-          });
-        }
-      });
-    }
-  );
+    });
+  }
 });
 
 //   chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
