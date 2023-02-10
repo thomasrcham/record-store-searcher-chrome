@@ -8,9 +8,10 @@
     "default_icon": "app_icon.png"
   },
   "permissions": [
-    "tabs"
-  ],"content_scripts": [
-    {
-      "js": ["scripts/buttons.js"]
-    }
-]}
+    "tabs",
+    "scripting"
+  ],
+  "content_scripts": [{
+  "matches": ["http://*/"],
+  "js": ["script.js"]
+}]}

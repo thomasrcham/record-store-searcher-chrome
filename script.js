@@ -4,15 +4,56 @@ const form = document.getElementById("form").addEventListener("submit", (e) => {
   let searchTerm = searchTermPrep(e.target.search.value);
   let searchStr = stores[i].Search === 1 ? "search?q=" : stores[i].Search;
 
-  chrome.tabs.create({
-    url: `${stores[i].Website}${searchStr}${searchTerm}`,
-  });
+  // async function getCurrentTab() {
+  //   // alert("words");
+  //   chrome.scripting.executeScript(null, {
+  //     target: { tabId: getTabId() },
+  //     files: ["insert.js"],
+  //   });
+  // }
+
+  function workpls() {
+    alert("pls");
+  }
+
+  chrome.tabs.create(
+    {
+      url: `${stores[i].Website}${searchStr}${searchTerm}`,
+      active: false,
+    },
+    (createdTab) => {
+      chrome.tabs.onUpdated.addListener(function _(tabId, info, tab) {
+        if (tabId === createdTab.id && info.url) {
+          // chrome.tabs.executeScript(tabId, { file: "insert.js" }, () => {
+          chrome.tabs.update(tabId, { active: true });
+          chrome.scripting.executeScript(tabId, {
+            target: { tabId: tabId },
+            func: workpls,
+          });
+        }
+      });
+    }
+  );
 });
+
+//   chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+//     // make sure the status is 'complete' and it's the right tab
+//     if (
+//       tab.url.indexOf(`${stores[i].Website}${searchStr}${searchTerm}`) != -1
+//     ) {
+//       chrome.scripting.executeScript(null, {
+//         code: "alert('hi');",
+//       });
+//     }
+//   });
+// });
 
 const searchTermPrep = (term) => {
   let query = term.split(" ").join("+");
   return query;
 };
+
+//
 
 const stores = [
   {
