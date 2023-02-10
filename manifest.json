@@ -8,10 +8,6 @@
     "default_icon": "app_icon.png"
   },
   "permissions": [
-    "tabs",
-    "scripting"
-  ],
-  "content_scripts": [{
-  "matches": ["http://*/"],
-  "js": ["./scripts/script.js"]
-}]}
+    "tabs"
+  ]
+}
