@@ -2,14 +2,6 @@ const form = document.getElementById("form").addEventListener("submit", (e) => {
   e.preventDefault();
   let searchTerm = searchTermPrep(e.target.search.value);
 
-  // async function getCurrentTab() {
-  //   // alert("words");
-  //   chrome.scripting.executeScript(null, {
-  //     target: { tabId: getTabId() },
-  //     files: ["insert.js"],
-  //   });
-  // }
-
   function workpls() {
     alert("pls");
   }
@@ -25,24 +17,10 @@ const form = document.getElementById("form").addEventListener("submit", (e) => {
   }
 });
 
-//   chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-//     // make sure the status is 'complete' and it's the right tab
-//     if (
-//       tab.url.indexOf(`${stores[i].Website}${searchStr}${searchTerm}`) != -1
-//     ) {
-//       chrome.scripting.executeScript(null, {
-//         code: "alert('hi');",
-//       });
-//     }
-//   });
-// });
-
 const searchTermPrep = (term) => {
   let query = term.split(" ").join("+");
   return query;
 };
-
-//
 
 const stores = [
   {
@@ -639,5 +617,3 @@ const stores = [
     Search: "search/",
   },
 ];
-
-console.log(stores.length);
