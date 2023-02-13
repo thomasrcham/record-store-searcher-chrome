@@ -71,7 +71,7 @@ const stores = [
   {
     Store: "Audiogazing",
     Website: "http://www.audiogazingmusic.com/",
-    Search: "search.php?search_query=",
+    Search: "search.php?sort=relevance&search_query=",
   },
   {
     Store: "Desert Island",
